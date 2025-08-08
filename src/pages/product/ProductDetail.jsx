@@ -30,7 +30,7 @@ const ProductDetail = () => {
             {data?.category?.name}
           </p>
           <h2 className="font-semibold lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800 mt-4">
-            {data?.title}
+            {data?.name}
           </h2>
 
           <div className=" flex flex-row justify-between  mt-5">
@@ -110,7 +110,7 @@ const ProductDetail = () => {
             {data?.description}
           </p>
           <p className="text-teal-600 font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 mt-6 ">
-            $ {data?.price}
+            $ {data?.priceOut}
           </p>
 
           <div className="lg:mt-11 mt-10">
@@ -181,7 +181,7 @@ const ProductDetail = () => {
           <div className="p-2 w-full rounded-2xl lg:w-full bg-gray-100 flex justify-center items-center">
             <img
               className="w-full h-full object-cover rounded-xl "
-              src={data?.images[0]}
+              src={data?.thumbnail}
               alt="Wooden Chair Preview"
             />
           </div>
