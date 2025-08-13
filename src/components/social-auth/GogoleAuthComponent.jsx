@@ -3,6 +3,9 @@ import { useEffect, useState } from "react"
 import { auth } from '../../firebase/firebase-config'
 import { useLoginMutation, useRegisterMutation } from "../../features/auth/authSlide";
 
+import { useNavigate } from "react-router";
+import { getDecryptedAccessToken, storeAccessToken } from "../../utils/tokenUtils";
+
 export const useLoginWithGoogle = () => {
     // setup login, popup, logout
     const [error, setError] = useState();
@@ -18,6 +21,9 @@ export const useLoginWithGoogle = () => {
 
     //calling login slice
     const [loginRequest, { data }] = useLoginMutation();
+
+    // navigation
+    const navigate = useNavigate();
 
     // useEffect tracking on user credential 
     useEffect(() => {
@@ -78,11 +84,27 @@ export const useLoginWithGoogle = () => {
                         password: `${user?.displayName.substring(0, 4)}${import.meta.env.VITE_SECRET_KEY}`
                     }).unwrap();
 
+                    console.log("=====> data: ", data)
+
                     if (!data) {
                         console.log("Login isn't success")
                     }
                     // const response =await  data.json();
                     console.log("======>user data after login", data.accessToken)
+
+
+                    // implement to store accessToken in local secure storage
+                    if(data.accessToken){
+                    //      const ENCRYPT_KEY = import.meta.env.VITE_ENCRYPTED_KEY || "teco_accessToken";
+                    // secureLocalStorage.setItem(ENCRYPT_KEY, data?.accessToken);
+                     storeAccessToken(data?.accessToken)
+                     console.log("=====> AfterDecrypted: ", getDecryptedAccessToken())
+                      navigate("/products")
+
+                    }
+                    if(!data.accessToken){
+                         navigate("/login")
+                    }
                 }
 
 

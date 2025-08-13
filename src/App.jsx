@@ -4,7 +4,10 @@ import CardProduct from "./components/card/card-product";
 import SkeletonCardProduct from "./components/card/skeleton-card-product";
 
 function App() {
-  const { data, isLoading } = useGetProductsQuery();
+  const { data, isLoading } = useGetProductsQuery({
+    page:0, 
+    size: 8
+  });
   const array = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
